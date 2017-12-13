@@ -1,7 +1,7 @@
 #!/bin/bash
 
 [ $DEBUG ] && set -x
-dir="data system/config/"
+Dirs="data system/config/"
 PermanentDir="/data"
 AppDir="/app"
 ConfigDir=${AppDir}/system/config/config.php
