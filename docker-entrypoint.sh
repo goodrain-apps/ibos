@@ -9,16 +9,20 @@ ConfigDir=${AppDir}/system/config/config.php
 
 # 持久化目录处理
 [ ! -d $PermanentDir ] && mkdir -p ${PermanentDir}
+
 for d in $Dirs
 do 
 if [ ! -d $PermanentDir/${d} ];then
-   [ ${d} == "system/config" ] && mkdir -p $PermanentDir/system && mv ${AppDir}/${d} ${PermanentDir}/system
+   if [ ${d} == "system/config" ];then 
+    mkdir -p $PermanentDir/system && mv ${AppDir}/${d} ${PermanentDir}/system
+   else
+    mv ${AppDir}/${d} ${PermanentDir}
+   fi
 else 
     mv $AppDir/${d} $AppDir/${d}.bak
-fi
+fi 
 
 ln -s $PermanentDir/${d} $AppDir/${d}
-
 done
 
 #elif [ ! -d $PermanentDir/data ];then
