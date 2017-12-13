@@ -11,4 +11,8 @@ RUN wget -O /tmp/ibos-$IBOS_VERSION.zip https://gitee.com/ibos/IBOS/repository/a
 
 VOLUME /data
 
+COPY docker-entrypoint.sh /
+
 EXPOSE 80
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
