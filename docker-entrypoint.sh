@@ -1,7 +1,7 @@
 #!/bin/bash
 
 [ $DEBUG ] && set -x
-Dirs="data system/config/"
+Dirs="data system/config"
 PermanentDir="/data"
 AppDir="/app"
 ConfigDir=${AppDir}/system/config/config.php
@@ -12,9 +12,7 @@ ConfigDir=${AppDir}/system/config/config.php
 for d in $Dirs
 do 
 if [ ! -d $PermanentDir/${d} ];then
-   [ $[d] == "system/config/" ]
-   && mkdir -p $PermanentDir/${d} \
-   && mv ${AppDir}/${d} ${PermanentDir}/
+   [ ${d} == "system/config" ] && mkdir -p $PermanentDir/${d} && mv ${AppDir}/${d} ${PermanentDir}/
 else 
     mv $AppDir/${d} $AppDir/${d}.bak
 fi
