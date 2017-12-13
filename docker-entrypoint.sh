@@ -1,26 +1,35 @@
 #!/bin/bash
 
 [ $DEBUG ] && set -x
-
+dir="data system/config/"
 PermanentDir="/data"
 AppDir="/app"
 ConfigDir=${AppDir}/system/config/config.php
-PermanentConfig=$PermanentDir/system/config/config.php
+
 
 # 持久化目录处理
-if [ ! -d $PermanentDir ];then
-    mkdir -p ${PermanentDir}
-elif [ ! -d $PermanentDir/data ];then
-    mv ${AppDir}/data ${PermanentDir}/ 
-elif [ ! -f $PermanentConfig ]
-    mv $ConfigDir $PermanentConfig
+[ ! -d $PermanentDir ] && mkdir -p ${PermanentDir}
+for d in $Dirs
+do 
+if [ ! -d $PermanentDir/${d} ];then
+    mv ${AppDir}/${d} ${PermanentDir}/
 else 
-    mv ${AppDir}/data ${AppDir}/data.bak \
-    && mv $ConfigDir $ConfigDir.bak
+    mv $AppDir/${d} $AppDir/${d}.bak
 fi
 
-ln -s ${PermanentDir}/data ${AppDir}/data \
-&& ln -s $PermanentDir $ConfigDir
+ln -s $PermanentDir/${d} $AppDir/${d}
+
+done
+
+#elif [ ! -d $PermanentDir/data ];then
+#    mv ${AppDir}/data ${PermanentDir}/ 
+#elif [ ! -f $PermanentConfig ];then
+#    mv $ConfigDir $PermanentConfig
+#else
+#    mv ${AppDir}/data ${AppDir}/data.bak \
+#    && mv $ConfigDir ${ConfigDir}.bak
+#fi
+
 # 修改配置文件
 [ -f ${ConfigDir} ] \
     && sed -i -r "s/('username' =>) 'root'/\1 \'$MYSQL_USER\'/" ${ConfigDir} \
