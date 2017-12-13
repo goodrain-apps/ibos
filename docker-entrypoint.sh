@@ -12,7 +12,9 @@ ConfigDir=${AppDir}/system/config/config.php
 for d in $Dirs
 do 
 if [ ! -d $PermanentDir/${d} ];then
-    mv ${AppDir}/${d} ${PermanentDir}/
+   [ $[d] == "system/config/" ]
+   && mkdir -p $PermanentDir/${d} \
+   && mv ${AppDir}/${d} ${PermanentDir}/
 else 
     mv $AppDir/${d} $AppDir/${d}.bak
 fi
