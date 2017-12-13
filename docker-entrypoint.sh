@@ -15,12 +15,12 @@ elif [ ! -d $PermanentDir/data ];then
 elif [ ! -f $PermanentConfig ]
     mv $ConfigDir $PermanentConfig
 else 
-    mv ${AppDir}/data ${AppDir}/data.bak
-    mv $ConfigDir $ConfigDir.bak
+    mv ${AppDir}/data ${AppDir}/data.bak \
+    && mv $ConfigDir $ConfigDir.bak
 fi
 
-ln -s ${PermanentDir}/data ${AppDir}/data
-ln -s $PermanentDir $ConfigDir
+ln -s ${PermanentDir}/data ${AppDir}/data \
+&& ln -s $PermanentDir $ConfigDir
 # 修改配置文件
 [ -f ${ConfigDir} ] \
     && sed -i -r "s/('username' =>) 'root'/\1 \'$MYSQL_USER\'/" ${ConfigDir} \
