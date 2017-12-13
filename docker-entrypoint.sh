@@ -21,6 +21,6 @@ ln -s ${PermanentDir}/data ${AppDir}/data
 [ -f ${ConfigDir} ] \
     && sed -i -r "s/('username' =>) 'root'/\1 \'$MYSQL_USER\'/" ${ConfigDir} \
     && sed -i -r "s/('password' =>) 'root'/\1 \'$MYSQL_PASS\'/" ${ConfigDir} \
-
+    && sed -i -r "s/('tableprefix' =>) '.*'/\1 \'ibos_\'/" ${ConfigDir} \
 
 exec httpd -DFOREGROUND
