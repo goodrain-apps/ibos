@@ -36,7 +36,7 @@ done
 
 # 修改配置文件
 [ -f ${ConfigDir} ] \
-    && sed -i -r "s/('username' =>) 'root'/\1 \'$MYSQL_USER\'/" ${ConfigDir} \
-    && sed -i -r "s/('password' =>) 'root'/\1 \'$MYSQL_PASS\'/" ${ConfigDir} \
+    && sed -i -r "s/('username' =>) '.*'/\1 \'$MYSQL_USER\'/" ${ConfigDir} \
+    && sed -i -r "s/('password' =>) '.*'/\1 \'$MYSQL_PASS\'/" ${ConfigDir} \
 
 exec httpd -DFOREGROUND
